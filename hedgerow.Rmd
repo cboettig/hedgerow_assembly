@@ -1,0 +1,132 @@
+---
+title: "Change point analysis on networks"
+output: github_document
+---
+
+
+Libraries
+
+```{r message=FALSE}
+#devtools::install::github("cboettig/NetGen")
+library(tidyverse)
+library(graphkernels)
+library(igraph)
+library(NetGen)
+```
+
+Data
+
+```{r}
+# A list of 36 networks
+load("data/networks/baci_networks_years.Rdata")
+```
+
+
+And here we go:
+
+```{r}
+tidy_nets <- 
+        map2_df(nets, names(nets), function(x,y){
+        meta <-  strsplit(y, "\\.")[[1]]
+        tibble(location = meta[[1]],  year = meta[[2]], network = list(as.data.frame(x)))
+})
+
+
+tidy_nets
+```
+
+```{r}
+graphs <- tidy_nets %>% 
+        filter(location == "Barger") %>% 
+        pull(network) %>% 
+        lapply(igraph::graph_from_incidence_matrix)
+```
+
+```{r}
+output <- graphkernels::CalculateGraphletKernel(graphs, par=3)
+```
+
+```{r}
+yrs <- tidy_nets %>%  filter(location == "Barger") %>% pull(year)
+
+rownames(output) <-  yrs
+colnames(output) <- yrs
+as.data.frame(output) %>% 
+        rownames_to_column("year") %>%  
+        tidyr::gather(start_year, value, -year) %>%
+        ggplot() + 
+        geom_tile(aes(start_year, year, fill = value))
+```
+
+
+------
+
+
+# Simulated Data
+
+
+```{r}
+
+time <- c(rep(1,5), rep(4, 5))
+
+i = 1
+graphs <- lapply(time, function(i){ 
+        
+        x = netgen(n_modav = c(250, 25), 
+                  cutoffs = c(90, 10), 
+                  net_type = 1, 
+                  net_degree = 10,
+                  net_rewire = c(0.01,0.1),
+                  mod_probs = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
+})
+
+
+```
+
+```{r}
+adj_plot(graphs[[1]])
+```
+
+```{r}
+adj_plot(graphs[[10]])
+```
+
+```{r}
+output <- graphkernels::CalculateGraphletKernel(graphs, par=3)
+
+```
+
+
+
+```{r}
+rownames(output) <- 2001:2010
+colnames(output) <- 2001:2010
+as.data.frame(output) %>% 
+        rownames_to_column("year") %>%  
+        tidyr::gather(start_year, value, -year) %>%
+        ggplot() + 
+        geom_tile(aes(start_year, year, fill = value))
+```
+
+
+
+
+
+
+
+
+```{r eval=FALSE, include=FALSE} 
+## experimental work with earthmover distance as metric
+library(emdist)
+
+
+n = 4
+A <- matrix(0,nrow = n, ncol=n)
+diag(A) <- 1
+
+weights <- cluster_size_A
+
+emdw(A = A, wA = cluster_sizes_A, B = B, wB = cluster_sizes_B)
+
+```
+
