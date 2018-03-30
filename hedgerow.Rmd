@@ -67,17 +67,16 @@ as.data.frame(output) %>%
 
 ```{r}
 
-time <- c(rep(1,5), rep(4, 5))
+time <- c(rep(10,5), rep(20, 5))
 
 i = 1
 graphs <- lapply(time, function(i){ 
         
         x = netgen(n_modav = c(250, 25), 
-                  cutoffs = c(90, 10), 
-                  net_type = 1, 
-                  net_degree = 10,
-                  net_rewire = c(0.01,0.1),
-                  mod_probs = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
+                  cutoffs = c(30, 10), 
+                  net_type = 41, # bi-partite nested
+                  net_degree = i,
+                  net_rewire = c(0.01,0.1))
 })
 
 

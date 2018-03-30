@@ -76,87 +76,86 @@ as.data.frame(output) %>%
 # Simulated Data
 
 ``` r
-time <- c(rep(1,5), rep(4, 5))
+time <- c(rep(10,5), rep(20, 5))
 
 i = 1
 graphs <- lapply(time, function(i){ 
         
         x = netgen(n_modav = c(250, 25), 
-                  cutoffs = c(90, 10), 
-                  net_type = 1, 
-                  net_degree = 10,
-                  net_rewire = c(0.01,0.1),
-                  mod_probs = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
+                  cutoffs = c(30, 10), 
+                  net_type = 41, # bi-partite nested
+                  net_degree = i,
+                  net_rewire = c(0.01,0.1))
 })
 ```
 
     ## 
-    ## module count = 2 
-    ## average degree = 9.896 
-    ## average module size = 125 
+    ## module count = 4 
+    ## average degree = 9.012 
+    ## average module size = 62.5 
+    ## number of components = 2 
+    ## size of largest component = 211
+
+    ## 
+    ## module count = 3 
+    ## average degree = 8.852 
+    ## average module size = 83.3333333333333 
     ## number of components = 1 
     ## size of largest component = 250
 
     ## 
-    ## module count = 2 
-    ## average degree = 9.76 
-    ## average module size = 125 
+    ## module count = 5 
+    ## average degree = 8.724 
+    ## average module size = 50 
+    ## number of components = 2 
+    ## size of largest component = 213
+
+    ## 
+    ## module count = 6 
+    ## average degree = 8.228 
+    ## average module size = 41.6666666666667 
+    ## number of components = 3 
+    ## size of largest component = 187
+
+    ## 
+    ## module count = 4 
+    ## average degree = 9.248 
+    ## average module size = 62.5 
     ## number of components = 1 
     ## size of largest component = 250
 
     ## 
-    ## module count = 2 
-    ## average degree = 10.096 
-    ## average module size = 125 
+    ## module count = 4 
+    ## average degree = 14.2 
+    ## average module size = 62.5 
+    ## number of components = 2 
+    ## size of largest component = 218
+
+    ## 
+    ## module count = 5 
+    ## average degree = 14.028 
+    ## average module size = 50 
     ## number of components = 1 
     ## size of largest component = 250
 
     ## 
-    ## module count = 2 
-    ## average degree = 9.736 
-    ## average module size = 125 
+    ## module count = 4 
+    ## average degree = 15.636 
+    ## average module size = 62.5 
     ## number of components = 1 
     ## size of largest component = 250
 
     ## 
-    ## module count = 2 
-    ## average degree = 9.868 
-    ## average module size = 125 
+    ## module count = 6 
+    ## average degree = 11.872 
+    ## average module size = 41.6666666666667 
     ## number of components = 1 
     ## size of largest component = 250
 
     ## 
-    ## module count = 2 
-    ## average degree = 9.96 
-    ## average module size = 125 
-    ## number of components = 1 
-    ## size of largest component = 250
-
-    ## 
-    ## module count = 2 
-    ## average degree = 9.832 
-    ## average module size = 125 
-    ## number of components = 1 
-    ## size of largest component = 250
-
-    ## 
-    ## module count = 2 
-    ## average degree = 10.364 
-    ## average module size = 125 
-    ## number of components = 1 
-    ## size of largest component = 250
-
-    ## 
-    ## module count = 2 
-    ## average degree = 9.584 
-    ## average module size = 125 
-    ## number of components = 1 
-    ## size of largest component = 250
-
-    ## 
-    ## module count = 2 
-    ## average degree = 9.752 
-    ## average module size = 125 
+    ## module count = 4 
+    ## average degree = 14.796 
+    ## average module size = 62.5 
     ## number of components = 1 
     ## size of largest component = 250
 
